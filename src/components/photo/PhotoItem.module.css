@@ -1,0 +1,10 @@
+.photoContainer {
+    background-color: paleturquoise;
+    margin: 1px;
+    margin-bottom: 4px;
+}
+
+img{
+    max-width: 35%;
+    max-height: 35%;
+}
