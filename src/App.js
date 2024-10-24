@@ -3,7 +3,11 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import PhotoItem from './components/photo/PhotoItem';
 import Layout from './components/ui/Layout';
+<<<<<<< HEAD
 import Hamburger from './components/ui/Hamburger';
+=======
+import Hamburger from './components/Hamburger';
+>>>>>>> 7d87f3d (Initial Commit)
 import Timeline from './components/timeline/Timeline';
 
 
