@@ -1,12 +1,11 @@
 import styles from "./PhotoItem.module.css"
-import photo from "../assets/dummyphoto.jpg";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchLoadingAnimate, fetchPhotoStart, fetchPhotoSuccess} from "./photoSlice";
+import photo from "../../assets/dummyphoto.jpg"
+
 
 
 function PhotoItem() {
 
-    const dispatch = useDispatch();
+    
 
     return (
         <div className={styles.photoContainer}>

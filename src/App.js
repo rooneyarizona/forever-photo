@@ -1,9 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import PhotoItem from "./components/photo/PhotoItem";
-import Layout from "./components/ui/Layout";
-import Hamburger from "./components/ui/Hamburger";
-import Timeline from "./components/timeline/Timeline";
+import PhotoItem from "./client/components/photo/PhotoItem"
+import Layout from "./client/components/ui/Layout";
+import Hamburger from "./client/components/ui/Hamburger"
+import Timeline from "./client/components/timeline/Timeline";
+
 
 function App() {
   return (
