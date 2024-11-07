@@ -4,6 +4,7 @@ import PhotoItem from "./client/components/photo/PhotoItem"
 import Layout from "./client/components/ui/Layout";
 import Hamburger from "./client/components/ui/Hamburger"
 import Timeline from "./client/components/timeline/Timeline";
+import RegisterForm from "./client/components/register/RegisterForm";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="photoItem" element={<PhotoItem />} />
           <Route path="hamburger" element={<Hamburger />} />
           <Route path="timeline" element={<Timeline />} />
+          <Route path="register" element={<RegisterForm />}/>
         </Route>
       </Routes>
     </BrowserRouter>

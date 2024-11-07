@@ -5,3 +5,12 @@
     background-color: black;
 }
 
+.thumbnails {
+    width: 10rem;
+    max-height: 10rem;
+}
+
+.thumbnails:hover {
+    border-style: dashed;
+    border-color: yellow;
+}
