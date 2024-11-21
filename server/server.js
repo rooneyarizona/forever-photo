@@ -12,9 +12,11 @@ app.use(bodyParser.json());
 
 const photoRoutes = require("../server/routes/photos");
 const userRoutes = require("../server/routes/users");
+const uploadRoutes = require("../server/routes/upload");
 
 app.use("/api/photos", photoRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/upload", uploadRoutes);
 
 app.listen(5001, () => {
   console.log("Connected on port 5001");

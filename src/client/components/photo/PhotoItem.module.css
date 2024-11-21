@@ -1,10 +1,19 @@
-.photoContainer {
-    
-}
-
 img {
     width: 25rem;
+    height: auto;
+}
+
+button {
+    color: red;
+    font-size: 2rem;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    border-radius: 15%;
+    background-color: paleturquoise;
+    border-color: paleturquoise
+}
+button:hover {
     
+    background-color: dodgerblue;
 }
 
 .photoItemContainer {
