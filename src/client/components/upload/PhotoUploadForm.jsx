@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
   userId: Yup.string()
@@ -9,12 +10,11 @@ const validationSchema = Yup.object({
   photoLocation: Yup.string()
     .required("Required")
     .max(20, "Must be 20 characters or less"),
-  photoUrl: Yup.string()
-    .required("Required")
-    .url("Invalid URL"),
+  photoUrl: Yup.string().required("Required").url("Invalid URL"),
 });
 
 function PhotoUploadForm({ onSubmit }) {
+  const navigate = useNavigate();
   return (
     <Formik
       initialValues={{
@@ -23,7 +23,11 @@ function PhotoUploadForm({ onSubmit }) {
         photoUrl: "",
       }}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}
+      onSubmit={(values, {setSubmitting}) => {
+        onSubmit(values);
+        setSubmitting(false);
+        navigate("/photoItem");
+      }}
     >
       <Form>
         <label htmlFor="userId">User ID</label>
@@ -37,7 +41,7 @@ function PhotoUploadForm({ onSubmit }) {
         <label htmlFor="photoUrl">Photo URL</label>
         <Field id="photoUrl" name="photoUrl" type="text" />
         <ErrorMessage name="photoUrl" component="div" />
-
+<p></p>
         <button type="submit">Submit</button>
       </Form>
     </Formik>

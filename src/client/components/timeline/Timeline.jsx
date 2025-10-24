@@ -41,6 +41,7 @@ function Timeline() {
     <>
       
       <div>
+        <h3>Test</h3>
         {imageArr.map((src, index) => (
           <img key={index} src={src} className={styles.thumbnails} onClick={handlePhotoSelection}/>
         ))}

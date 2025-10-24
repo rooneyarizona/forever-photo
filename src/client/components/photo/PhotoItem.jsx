@@ -9,7 +9,7 @@ function PhotoItem() {
   const [isLoading, setIsLoading] = useState(true);
 
   function changeLoadingState(){
-    setIsLoading(false);
+    setIsLoading(true);
   }
 
   return (
