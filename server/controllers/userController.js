@@ -1,10 +1,10 @@
 const db = require("../models/db");
 
 exports.addUser = (req, res) => {
-  const { firstName, lastName, emailAddress } = req.body;
-  const sql = `INSERT INTO users(firstName, lastName, emailAddress) VALUES (?, ?, ?)`;
+  const { firstName, lastName, emailAddress, dateCreated } = req.body;
+  const sql = `INSERT INTO users(firstName, lastName, email, dateCreated) VALUES (?, ?, ?, ?)`;
 
-  db.query(sql, [firstName, lastName, emailAddress], (err, result) => {
+  db.query(sql, [firstName, lastName, emailAddress, dateCreated], (err, result) => {
     if (err) {
       return res.status(500).json({
         success: false,
