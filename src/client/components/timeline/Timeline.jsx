@@ -1,38 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPhotos } from "../photo/photoSlice";
 import styles from "./Timeline.module.css";
-import img1 from "../../assets/IMG_0071.jpg";
-import img2 from "../../assets/IMG_3082.jpg";
-import img3 from "../../assets/IMG_3937.jpg";
-import img4 from "../../assets/IMG_4845.jpg";
 import HamburgerMenu from "../ui/Hamburger";
 
-const imageArr = [img1, img2, img3, img4];
-
 function Timeline() {
-  const [photoList, setPhotoList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const isLoggedIn = false;
+  const dispatch = useDispatch();
+
+  // Pull photo data and status from Redux store
+  const { items: photoList, status, error } = useSelector((state) => state.photos);
+
+  // Temporary user info (you’ll replace with Redux userSlice later)
+  const isLoggedIn = true;
   const username = "Alastair";
-  const photoCount = 24;
+  const photoCount = photoList?.length || 0;
 
+  // Fetch photos on mount
   useEffect(() => {
-    async function getPhotos() {
-      try {
-        const res = await fetch(`http://localhost:5000/api/photos`);
-        if (!res.ok) throw new Error("Network issue");
-        const data = await res.json();
-        setPhotoList(data);
-      } catch (error) {
-        console.error("Error fetching photos:", error);
-      } finally {
-        setLoading(false);
-      }
+    if (status === "idle") {
+      dispatch(fetchPhotos());
     }
-    getPhotos();
-  }, []);
+  }, [status, dispatch]);
 
-  function handlePhotoSelection() {
-    alert("Photo selected");
+  function handlePhotoSelection(photo) {
+    alert(`Selected photo: ${photo.title || "Untitled"}`);
   }
 
   return (
@@ -44,15 +35,24 @@ function Timeline() {
       />
 
       <div className="mt-16 text-center">
-        <h3>Testy One</h3>
-        {imageArr.map((src, index) => (
-          <img
-            key={index}
-            src={src}
-            className={styles.thumbnails}
-            onClick={handlePhotoSelection}
-          />
-        ))}
+        <h3>{username}’s Timeline</h3>
+
+        {status === "loading" && <p>Loading photos...</p>}
+        {status === "failed" && <p>Error: {error}</p>}
+
+        {status === "succeeded" && photoList.length > 0 ? (
+          photoList.map((photo, index) => (
+            <img
+              key={photo.id || index}
+              src={photo.imageUrl}
+              alt={photo.title || "Photo"}
+              className={styles.thumbnails}
+              onClick={() => handlePhotoSelection(photo)}
+            />
+          ))
+        ) : (
+          status === "succeeded" && <p>No photos to show yet.</p>
+        )}
       </div>
     </>
   );

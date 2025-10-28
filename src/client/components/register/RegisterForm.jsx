@@ -7,9 +7,10 @@ function RegisterForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleFormSubmit = async (e) => {
-    const userData = { firstName, lastName, emailAddress };
+    const userData = { firstName, lastName, emailAddress, password };
     try {
       const data = await axios.post(
         "http://localhost:5001/api/users/register",
@@ -46,6 +47,14 @@ function RegisterForm() {
             placeholder="First E-Mail"
             value={emailAddress}
             onChange={(e) => setEmailAddress(e.target.value)}
+          ></input>
+        </div>
+        <div>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           ></input>
         </div>
         <button type="submit">Register</button>

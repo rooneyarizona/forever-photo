@@ -1,28 +1,47 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const photoSlice = createSlice({
-  name: "photo",
+// Async thunk to fetch photos from your Node/Express backend
+export const fetchPhotos = createAsyncThunk(
+  "photos/fetchPhotos",
+  async (_, thunkAPI) => {
+    try {
+      const res = await fetch("http://localhost:5000/api/photos");
+      if (!res.ok) throw new Error("Failed to fetch photos");
+      const data = await res.json();
+      return data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+
+const photoSlice = createSlice({
+  name: "photos",
   initialState: {
-    loading: false,
-    error: false,
+    items: [],
+    status: "idle", // idle | loading | succeeded | failed
+    error: null,
   },
   reducers: {
-    fetchPhotoStart(state) {
-      state.loading = true;
-      state.error = null;
+    addPhoto(state, action) {
+      state.items.push(action.payload);
     },
-    fetchPhotoSuccess(state, action) {
-      state.loading = false;
-      state.photo = action.payload;
-    },
-    fetchLoadingAnimate(state, action) {
-      state.loading = false;
-      state.photo = action.payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchPhotos.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchPhotos.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.items = action.payload;
+      })
+      .addCase(fetchPhotos.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
   },
 });
 
-export const { fetchLoadingAnimate, fetchPhotoStart, fetchPhotoSuccess } =
-  photoSlice.actions;
-
+export const { addPhoto } = photoSlice.actions;
 export default photoSlice.reducer;
